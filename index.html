@@ -1,1 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MANZONE | Premium Salon - Book Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #000000, #1a0000);
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 3px solid #dc143c;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #dc143c;
+            letter-spacing: 1px;
+        }
+
+        .logo p {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
+        .whatsapp-header {
+            background: #25D366;
+            padding: 8px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=1200&h=300&fit=crop');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 50px 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .hero-banner h2 {
+            font-size: 2rem;
+            color: #dc143c;
+        }
+
+        .hero-banner p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.5rem;
+            margin: 25px 0 15px 0;
+            color: #dc143c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Service Card - Selected State Visible */
+        .service-card {
+            background: #111;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 2px solid #222;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.3);
+        }
+
+        /* Selected Card - CLEAR VISIBLE CHANGE */
+        .service-card.selected {
+            border: 3px solid #dc143c;
+            background: #1a0a0a;
+            box-shadow: 0 0 20px rgba(220,20,60,0.5);
+        }
+
+        .service-card.selected::after {
+            content: "✓ SELECTED ✓";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc143c;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-desc {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .card-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #dc143c;
+        }
+
+        .add-btn {
+            background: #dc143c;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #ff1a4a;
+        }
+
+        /* Booking Sidebar */
+        .booking-sidebar {
+            background: #111;
+            border-radius: 20px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            border: 1px solid #222;
+        }
+
+        .cart-header {
+            border-bottom: 2px solid #dc143c;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-count {
+            background: #dc143c;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .cart-item-name {
+            flex: 1;
+        }
+
+        .cart-item-price {
+            color: #dc143c;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            color: #ff4444;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.1rem;
+        }
+
+        .cart-total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #dc143c;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #dc143c;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #dc143c, #8b0000);
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .book-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Two Column Layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 25px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #dc143c;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            z-index: 1000;
+            animation: fadeInOut 2s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(50px); }
+            15% { opacity: 1; transform: translateX(0); }
+            85% { opacity: 1; transform: translateX(0); }
+            100% { opacity: 0; transform: translateX(50px); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #111;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #dc143c;
+        }
+
+        .btn-close {
+            background: #dc143c;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            border-top: 1px solid #222;
+            color: #888;
+        }
+
+        .float-wa {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .float-wa a {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+            .hero-banner h2 {
+                font-size: 1.3rem;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">💈</div>
+            <div>
+                <h1>MANZONE</h1>
+                <p>Premium Salon & Barber Studio 🔥</p>
+            </div>
+        </div>
+        <div class="whatsapp-header">
+            <i class="fab fa-whatsapp"></i> +91 77365 12393
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <h2>✂️ Look Sharp, Feel Royal 👑</h2>
+        <p>Premium Haircuts | Massage | Facial | Grooming</p>
+        <p style="font-size: 0.9rem; margin-top: 10px;">⭐ 4.9 ★ (2,500+ Happy Customers)</p>
+    </div>
+
+    <div class="two-columns">
+        <!-- Left Side - Services Grid -->
+        <div>
+            <div class="section-title">
+                <span>💈</span> Hair Services
+            </div>
+            <div class="services-grid" id="hairServices"></div>
+
+            <div class="section-title">
+                <span>💆‍♂️</span> Face & Skin
+            </div>
+            <div class="services-grid" id="faceServices"></div>
+
+            <div class="section-title">
+                <span>💪</span> Body Massage & Spa
+            </div>
+            <div class="services-grid" id="massageServices"></div>
+
+            <div class="section-title">
+                <span>💅</span> Nails & Waxing
+            </div>
+            <div class="services-grid" id="nailsServices"></div>
+        </div>
+
+        <!-- Right Side - Cart -->
+        <div>
+            <div class="booking-sidebar">
+                <div class="cart-header">
+                    <h3>🛒 Your Cart</h3>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <div id="cartItems" class="cart-items">
+                    <p style="color: #555; text-align: center;">✨ Select services from left</p>
+                </div>
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cartTotalAmount">₹0</span>
+                </div>
+
+                <input type="text" id="customerName" class="form-input" placeholder="👤 Your Full Name *">
+                <input type="tel" id="customerPhone" class="form-input" placeholder="📞 WhatsApp Number *">
+                <input type="date" id="bookingDate" class="form-input">
+                <select id="bookingTime" class="form-input">
+                    <option value="">⏰ Select Time</option>
+                    <option>10:00 AM 🕙</option>
+                    <option>11:00 AM 🕚</option>
+                    <option>12:00 PM 🕛</option>
+                    <option>01:00 PM 🕐</option>
+                    <option>02:00 PM 🕑</option>
+                    <option>03:00 PM 🕒</option>
+                    <option>04:00 PM 🕓</option>
+                    <option>05:00 PM 🕔</option>
+                    <option>06:00 PM 🕕</option>
+                    <option>07:00 PM 🕖</option>
+                    <option>08:00 PM 🕗</option>
+                </select>
+                <textarea id="specialRequest" class="form-input" rows="2" placeholder="💬 Special Request (Optional)"></textarea>
+
+                <button class="book-btn" id="bookBtn">
+                    🔥 Confirm Booking & Send WhatsApp 🔥
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>⭐ 5 Star Rated | 10+ Years Experience | Home Service Available</p>
+        <p>📍 MANZONE - Where Style Meets Perfection | Open Daily 9 AM - 9 PM</p>
+    </div>
+</div>
+
+<!-- Floating WhatsApp -->
+<div class="float-wa">
+    <a href="https://wa.me/917736512393" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <i class="fas fa-check-circle" style="font-size: 3rem; color: #25D366;"></i>
+        <h2 style="color: #dc143c; margin: 15px 0;">✅ Booking Confirmed!</h2>
+        <p id="modalMsg">Your appointment has been booked successfully.</p>
+        <button class="btn-close" onclick="closeModal()">OK</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+<script>
+    // ============================================
+    // MANZONE - COMPLETE FIXED VERSION
+    // WhatsApp: 7736512393
+    // ============================================
+
+    let cart = [];
+
+    // Services Data with Working Images (Pexels/Unsplash)
+    const services = {
+        hair: [
+            { id: 1, name: "Signature Haircut", desc: "Trendy & Classic Styles", price: 399, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "✂️" },
+            { id: 2, name: "Royal Hair Color", desc: "Premium Color + Shine", price: 1499, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "🎨" },
+            { id: 3, name: "Hair Spa", desc: "Deep Conditioning", price: 899, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "💆" },
+            { id: 4, name: "Beard Styling", desc: "Shape, Trim & Oil", price: 199, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "🧔" },
+            { id: 5, name: "Keratin Treatment", desc: "Smooth & Shiny Hair", price: 3999, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "✨" }
+        ],
+        face: [
+            { id: 6, name: "Gold Facial", desc: "Glow & Radiance", price: 1299, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "✨" },
+            { id: 7, name: "Cleanup + Bleach", desc: "Fresh & Bright Skin", price: 499, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "🧼" },
+            { id: 8, name: "Threading", desc: "Perfect Eyebrows", price: 99, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "🪡" }
+        ],
+        massage: [
+            { id: 9, name: "Swedish Massage", desc: "Relax & Rejuvenate", price: 1599, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "💆" },
+            { id: 10, name: "Deep Tissue Massage", desc: "Muscle Relief", price: 1899, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "💪" },
+            { id: 11, name: "Hot Stone Massage", desc: "Therapy & Warmth", price: 2199, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "🪨" },
+            { id: 12, name: "Aroma Therapy", desc: "Essential Oils", price: 1799, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "🌿" }
+        ],
+        nails: [
+            { id: 13, name: "Manicure", desc: "Nail Care & Polish", price: 399, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "💅" },
+            { id: 14, name: "Pedicure", desc: "Foot Spa & Care", price: 499, img: "https://images.pexels.com/photos/3998420/pexels-photo-3998420.jpeg?w=300&h=200&fit=crop", emoji: "🦶" },
+            { id: 15, name: "Full Body Waxing", desc: "Complete Smoothness", price: 1899, img: "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?w=300&h=200&fit=crop", emoji: "🕯️" }
+        ]
+    };
+
+    // Show Toast Notification
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
+    }
+
+    // Add/Remove from Cart
+    function toggleCart(id, name, price) {
+        const existingIndex = cart.findIndex(item => item.id === id);
+        
+        if (existingIndex !== -1) {
+            // Remove from cart
+            cart.splice(existingIndex, 1);
+            showToast(`❌ Removed: ${name}`);
+        } else {
+            // Add to cart
+            cart.push({ id, name, price });
+            showToast(`✅ Added: ${name} - ₹${price}`);
+        }
+        
+        updateCartUI();
+        updateCardSelection();
+    }
+
+    // Remove from cart (called from cart)
+    function removeFromCart(id, name) {
+        cart = cart.filter(item => item.id !== id);
+        showToast(`❌ Removed: ${name}`);
+        updateCartUI();
+        updateCardSelection();
+    }
+
+    // Update Cart UI
+    function updateCartUI() {
+        const cartDiv = document.getElementById('cartItems');
+        const totalDiv = document.getElementById('cartTotalAmount');
+        const cartCount = document.getElementById('cartCount');
+        
+        if (cart.length === 0) {
+            cartDiv.innerHTML = '<p style="color: #555; text-align: center;">✨ Select services from left</p>';
+            totalDiv.innerHTML = '₹0';
+            cartCount.innerHTML = '0';
+            return;
+        }
+        
+        let total = 0;
+        cartDiv.innerHTML = cart.map(item => {
+            total += item.price;
+            return `
+                <div class="cart-item">
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">₹${item.price}</span>
+                    <span class="remove-item" onclick="removeFromCart(${item.id}, '${item.name}')">🗑️</span>
+                </div>
+            `;
+        }).join('');
+        
+        totalDiv.innerHTML = `₹${total}`;
+        cartCount.innerHTML = cart.length;
+    }
+
+    // Update Card Selection (Visible Border + Checkmark)
+    function updateCardSelection() {
+        const allCards = document.querySelectorAll('.service-card');
+        allCards.forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        cart.forEach(item => {
+            const cards = document.querySelectorAll('.service-card');
+            for (let card of cards) {
+                if (card.getAttribute('data-id') == item.id) {
+                    card.classList.add('selected');
+                }
+            }
+        });
+    }
+
+    // Render Services
+    function renderServices() {
+        renderCategory('hairServices', services.hair);
+        renderCategory('faceServices', services.face);
+        renderCategory('massageServices', services.massage);
+        renderCategory('nailsServices', services.nails);
+    }
+
+    function renderCategory(containerId, items) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = items.map(item => `
+            <div class="service-card" data-id="${item.id}" onclick="toggleCart(${item.id}, '${item.name}', ${item.price})">
+                <img class="card-img" src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.src='https://placehold.co/300x200/dc143c/white?text=${item.name}'">
+                <div class="card-info">
+                    <div class="card-title">
+                        <span>${item.emoji} ${item.name}</span>
+                    </div>
+                    <div class="card-desc">${item.desc}</div>
+                    <div class="card-price">₹${item.price}</div>
+                    <button class="add-btn">➕ Add to Cart</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Set min date for booking
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('bookingDate').min = today;
+
+    // Send WhatsApp Messages
+    async function sendWhatsApp(booking) {
+        const ownerMsg = `
+🔥 *MANZONE - NEW BOOKING* 🔥
+━━━━━━━━━━━━━━━━━━━
+
+👤 *Customer:* ${booking.name}
+📞 *Phone:* ${booking.phone}
+📅 *Date:* ${booking.date}
+⏰ *Time:* ${booking.time}
+
+📋 *Services Booked:*
+${booking.services.map(s => `  • ${s.name} - ₹${s.price}`).join('\n')}
+
+💰 *Total Amount:* ₹${booking.total}
+
+💬 *Special Request:* ${booking.notes || 'None'}
+
+━━━━━━━━━━━━━━━━━━━
+📍 MANZONE Salon
+📞 +91 77365 12393
+        `.trim();
+
+        const customerMsg = `
+🌟 *MANZONE SALON* 🌟
+━━━━━━━━━━━━━━━━━━━
+
+✅ *Booking Confirmed!*
+
+👋 Hello ${booking.name},
+
+📋 *Your Appointment Details:*
+━━━━━━━━━━━━━━━━━━━
+📅 Date: ${booking.date}
+⏰ Time: ${booking.time}
+💇 Services: ${booking.services.map(s => s.name).join(', ')}
+💰 Total: ₹${booking.total}
+
+📍 *Address:* MANZONE Salon
+📞 *Contact:* +91 77365 12393
+
+✨ *Thank you for choosing MANZONE!*
+We look forward to serving you.
+━━━━━━━━━━━━━━━━━━━
+        `.trim();
+
+        // Open owner WhatsApp
+        window.open(`https://wa.me/917736512393?text=${encodeURIComponent(ownerMsg)}`, '_blank');
+        
+        // Open customer WhatsApp after delay
+        setTimeout(() => {
+            window.open(`https://wa.me/${booking.phone.replace(/\D/g, '')}?text=${encodeURIComponent(customerMsg)}`, '_blank');
+        }, 500);
+    }
+
+    // Book Button Handler
+    document.getElementById('bookBtn').addEventListener('click', async () => {
+        const name = document.getElementById('customerName').value.trim();
+        const phone = document.getElementById('customerPhone').value.trim();
+        const date = document.getElementById('bookingDate').value;
+        const time = document.getElementById('bookingTime').value;
+
+        if (!name) {
+            showToast('❌ Please enter your name');
+            return;
+        }
+        if (!phone || phone.length < 10) {
+            showToast('❌ Please enter valid phone number');
+            return;
+        }
+        if (cart.length === 0) {
+            showToast('❌ Please select at least one service');
+            return;
+        }
+        if (!date) {
+            showToast('❌ Please select a date');
+            return;
+        }
+        if (!time) {
+            showToast('❌ Please select a time');
+            return;
+        }
+
+        let total = 0;
+        cart.forEach(s => total += s.price);
+
+        const booking = {
+            name, phone, date, time,
+            services: [...cart],
+            total: total,
+            notes: document.getElementById('specialRequest').value
+        };
+
+        const btn = document.getElementById('bookBtn');
+        btn.disabled = true;
+        btn.innerHTML = '📤 Sending WhatsApp...';
+
+        await sendWhatsApp(booking);
+
+        // Save to localStorage
+        let bookings = JSON.parse(localStorage.getItem('manzone_bookings') || '[]');
+        bookings.push({ ...booking, bookedAt: new Date().toISOString() });
+        localStorage.setItem('manzone_bookings', JSON.stringify(bookings));
+
+        // Show success modal
+        document.getElementById('modalMsg').innerHTML = `
+            ✅ <strong>${name}</strong>, your appointment is confirmed!<br><br>
+            📅 ${date} at ${time}<br>
+            💇 ${cart.length} service(s) - ₹${total}<br><br>
+            ✨ WhatsApp message sent to you & salon!
+        `;
+        document.getElementById('successModal').style.display = 'flex';
+
+        // Reset cart and form
+        cart = [];
+        updateCartUI();
+        updateCardSelection();
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('specialRequest').value = '';
+        document.getElementById('bookingDate').value = '';
+        document.getElementById('bookingTime').value = '';
+
+        btn.disabled = false;
+        btn.innerHTML = '🔥 Confirm Booking & Send WhatsApp 🔥';
+    });
+
+    function closeModal() {
+        document.getElementById('successModal').style.display = 'none';
+    }
+
+    window.onclick = (e) => {
+        if (e.target === document.getElementById('successModal')) closeModal();
+    };
+
+    // Initialize
+    renderServices();
+</script>
+
+</body>
+</html>
